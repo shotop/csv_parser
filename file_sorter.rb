@@ -1,4 +1,5 @@
 require 'csv'
+require 'time'
 
 class FileSorter
   attr_reader :arguments
@@ -36,5 +37,17 @@ class FileSorter
         end
       end
     end
+  end
+
+  def sort_by_date_asc(rows)
+    rows.sort_by! {|column| Time.strptime(column[4], "%m/%d/%Y")}
+  end
+
+  def sort_by_last_name_desc(rows)
+    rows.sort_by! {|column| column[0]}.reverse
+  end
+
+  def sort_by_gender_then_last_name_asc(rows)
+    rows.sort_by! {|column| [column[2], column[0]]}
   end
 end

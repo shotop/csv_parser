@@ -84,4 +84,41 @@ describe "file_sorter" do
       expect(CSV.read('master_file')).to eq(contents)
     end
   end
+
+  describe '#sort_by' do
+    let(:file_sorter) {FileSorter.new(valid_args)}
+
+    it 'sorts by date asc' do
+      input_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
+                    ["Hotop", "Tom", "Male", "Blue", "08/25/1971"]]
+
+      sorted_rows = [["Hotop", "Tom", "Male", "Blue", "08/25/1971"],
+                     ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
+
+      expect(file_sorter.sort_by_date_asc(input_rows)).to eq(sorted_rows)
+    end
+
+    it 'sorts by last name desc' do
+      input_rows = [["Geronimo", "Tom", "Male", "Blue", "08/25/1971"],
+                    ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
+
+      sorted_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
+                     ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"]]
+
+
+      expect(file_sorter.sort_by_last_name_desc(input_rows)).to eq(sorted_rows)
+    end
+
+    it 'sorts by gender then last name asc' do
+      input_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
+                    ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"],
+                    ["Coca", "Andrea", "Female", "Blue", "09/25/1971"]]
+
+      sorted_rows = [["Coca", "Andrea", "Female", "Blue", "09/25/1971"],
+                     ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"],
+                     ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
+
+      expect(file_sorter.sort_by_gender_then_last_name_asc(input_rows)).to eq(sorted_rows)
+    end
+  end
 end
