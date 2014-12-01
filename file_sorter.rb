@@ -26,4 +26,15 @@ class FileSorter
 
     return processed_csv
   end
+
+  def combine_inputs(*args)
+    args.each do |arg_item|
+
+      CSV.open('master_file', 'a') do |csv_object|
+        preprocess_input(arg_item).each do |row|
+          csv_object << row
+        end
+      end
+    end
+  end
 end
