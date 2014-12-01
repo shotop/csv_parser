@@ -132,4 +132,19 @@ describe "file_sorter" do
       expect(output).to include "Hotop               Tom"
     end
   end
+
+  describe '#run' do
+    let(:file_sorter) {FileSorter.new(invalid_args)}
+
+    it 'raises an error when there arent three input files' do
+      output = capture_stdout { file_sorter.run }
+      expect(output).to include "Not the right number of arguments."
+    end
+  end
+
+  describe '#display_sorted_ouput' do
+    let(:file_sorter) {FileSorter.new(valid_args)}
+
+
+  end
 end
