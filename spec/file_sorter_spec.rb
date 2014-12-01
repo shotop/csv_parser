@@ -121,4 +121,15 @@ describe "file_sorter" do
       expect(file_sorter.sort_by_gender_then_last_name_asc(input_rows)).to eq(sorted_rows)
     end
   end
+
+  describe '#format_row' do
+    let(:file_sorter) {FileSorter.new(valid_args)}
+
+    it 'formats csv rows for better console output' do
+      input_row = ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]
+
+      output = capture_stdout { file_sorter.format_row(input_row) }
+      expect(output).to include "Hotop               Tom"
+    end
+  end
 end

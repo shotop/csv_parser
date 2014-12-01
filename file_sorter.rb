@@ -50,4 +50,13 @@ class FileSorter
   def sort_by_gender_then_last_name_asc(rows)
     rows.sort_by! {|column| [column[2], column[0]]}
   end
+
+  def format_row(row)
+    row.each do |item|
+      while item.length < 20
+        item << " "
+      end
+    end
+    puts row[0] + row[1].rjust(20) + row[2].rjust(20) + row[4].rjust(15) + row[3].rjust(20)
+  end
 end
