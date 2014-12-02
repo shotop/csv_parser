@@ -85,7 +85,6 @@ describe "file_sorter" do
   end
 
   describe 'sort' do
-    let(:file_parser) {FileParser.new(valid_args)}
 
     it 'sorts by date asc' do
       input_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
@@ -94,7 +93,7 @@ describe "file_sorter" do
       sorted_rows = [["Hotop", "Tom", "Male", "Blue", "08/25/1971"],
                      ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
 
-      expect(file_parser.sort_by_date_asc(input_rows)).to eq(sorted_rows)
+      expect(CSVSorter.new(input_rows).sort_by_date_asc).to eq(sorted_rows)
     end
 
     it 'sorts by last name desc' do
@@ -105,7 +104,7 @@ describe "file_sorter" do
                      ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"]]
 
 
-      expect(file_parser.sort_by_last_name_desc(input_rows)).to eq(sorted_rows)
+      expect(CSVSorter.new(input_rows).sort_by_last_name_desc).to eq(sorted_rows)
     end
 
     it 'sorts by gender then last name asc' do
@@ -117,7 +116,7 @@ describe "file_sorter" do
                      ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"],
                      ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
 
-      expect(file_parser.sort_by_gender_then_last_name_asc(input_rows)).to eq(sorted_rows)
+      expect(CSVSorter.new(input_rows).sort_by_gender_then_last_name_asc).to eq(sorted_rows)
     end
   end
 

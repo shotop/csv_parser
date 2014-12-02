@@ -1,6 +1,6 @@
 require 'csv'
-require 'time'
 require_relative 'file_combiner'
+require_relative 'csv_sorter'
 
 class FileParser
   def initialize(arguments)
@@ -19,18 +19,6 @@ class FileParser
 
   def arguments_valid?
     @arguments.length == 3 ? true : false
-  end
-
-  def sort_by_date_asc(rows)
-    rows.sort_by! {|column| Time.strptime(column[4], "%m/%d/%Y")}
-  end
-
-  def sort_by_last_name_desc(rows)
-    rows.sort_by! {|column| column[0]}.reverse
-  end
-
-  def sort_by_gender_then_last_name_asc(rows)
-    rows.sort_by! {|column| [column[2], column[0]]}
   end
 
   def format_row(row)
@@ -52,7 +40,9 @@ class FileParser
     p "OUTPUT 1: SORT BY GENDER THEN LAST NAME ASC"
     format_row(header)
 
-    sort_by_gender_then_last_name_asc(master).each do |row|
+    sorted_csv = CSVSorter.new(master).sort_by_gender_then_last_name_asc
+
+    sorted_csv.each do |row|
       format_row(row)
     end
 
@@ -61,7 +51,9 @@ class FileParser
     p "OUTPUT 2: SORT BY BIRTHDAY ASC"
     format_row(header)
 
-    sort_by_date_asc(master).each do |row|
+    sorted_csv = CSVSorter.new(master).sort_by_date_asc
+
+    sorted_csv.each do |row|
       format_row(row)
     end
 
@@ -70,7 +62,9 @@ class FileParser
     p "OUTPUT 3: SORT BY LAST NAME DESC"
     format_row(header)
 
-    sort_by_last_name_desc(master).each do |row|
+    sorted_csv = CSVSorter.new(master).sort_by_last_name_desc
+
+    sorted_csv.each do |row|
       format_row(row)
     end
   end
