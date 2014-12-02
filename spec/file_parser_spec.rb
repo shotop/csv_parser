@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "file_parser" do
+describe "file_sorter" do
   before(:each) do
     File.delete("master_file") if File.exist?("master_file")
   end
@@ -31,7 +31,6 @@ describe "file_parser" do
 
   describe 'preprocess_input' do
 
-    let(:file_combiner) {FileCombiner.new(valid_args)}
     let(:comma_separated_data) {valid_args[0]}
     let(:pipe_separated_data) {valid_args[1]}
     let(:space_separated_data) {valid_args[2]}
@@ -41,7 +40,7 @@ describe "file_parser" do
       it 'parses comma-separated data' do
         result = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
 
-        processed_csv = file_combiner.preprocess_input(comma_separated_data)
+        processed_csv = CSVPreprocessor.new(comma_separated_data).preprocess_input
 
         expect(processed_csv).to eq(result)
       end
@@ -49,7 +48,7 @@ describe "file_parser" do
       it 'parses pipe-separated data' do
         result = [["Coca", "Andrea", "Female", "Blue", "02/25/1983"]]
 
-        processed_csv = file_combiner.preprocess_input(pipe_separated_data)
+        processed_csv = CSVPreprocessor.new(pipe_separated_data).preprocess_input
 
         expect(processed_csv).to eq(result)
       end
@@ -57,7 +56,7 @@ describe "file_parser" do
       it 'parses space-separated data' do
         result = [["Gerard", "Tom", "Male", "Blue", "02/26/1983"]]
 
-        processed_csv = file_combiner.preprocess_input(space_separated_data)
+        processed_csv = CSVPreprocessor.new(space_separated_data).preprocess_input
 
         expect(processed_csv).to eq(result)
       end

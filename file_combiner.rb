@@ -1,3 +1,5 @@
+require_relative 'csv_preprocessor'
+
 class FileCombiner
   def initialize(*files)
     @files = files
@@ -7,27 +9,11 @@ class FileCombiner
     @files.each do |file|
 
       CSV.open('master_file', 'a') do |csv_object|
-        preprocess_input(file).each do |row|
+        preprocessed_csv = CSVPreprocessor.new(file).preprocess_input
+        preprocessed_csv.each do |row|
           csv_object << row
         end
       end
     end
-  end
-
-
-  def preprocess_input(input_file)
-    headers = File.open(input_file).first
-    if headers =~ /[,]/
-      separator = ","
-    elsif headers =~ /[|]/
-      separator = "|"
-    else
-      separator = " "
-    end
-
-    processed_csv = CSV.read(input_file, { :col_sep => separator })
-    processed_csv.shift #remove headers
-
-    return processed_csv
   end
 end

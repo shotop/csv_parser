@@ -2,6 +2,7 @@ require 'rspec'
 
 require_relative '../file_parser'
 require_relative '../file_combiner'
+require_relative '../csv_preprocessor'
 
 RSpec.configure do |config|
    config.color = true
