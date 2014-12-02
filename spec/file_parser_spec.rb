@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "file_sorter" do
+describe "file_parser" do
   before(:each) do
     File.delete("master_file") if File.exist?("master_file")
   end
@@ -12,19 +12,19 @@ describe "file_sorter" do
 
     context 'valid arguments' do
 
-      let(:file_sorter) {FileSorter.new(valid_args)}
+      let(:file_parser) {FileParser.new(valid_args)}
 
       it 'is true when arguments are valid' do
-        expect(file_sorter.arguments_valid?).to be true
+        expect(file_parser.arguments_valid?).to be true
       end
     end
 
     context 'invalid arguments' do
 
-      let(:file_sorter) {FileSorter.new(invalid_args)}
+      let(:file_parser) {FileParser.new(invalid_args)}
 
       it 'is false when arguments are invalid' do
-        expect(file_sorter.arguments_valid?).to be false
+        expect(file_parser.arguments_valid?).to be false
       end
     end
   end
@@ -64,7 +64,7 @@ describe "file_sorter" do
     end
   end
 
-  describe '#combine_inputs' do
+  describe 'combine_inputs' do
     let(:file_combiner) {FileCombiner.new(valid_args[0], valid_args[1], valid_args[2])}
 
     it 'creates the master file' do
@@ -85,8 +85,8 @@ describe "file_sorter" do
     end
   end
 
-  describe '#sort_by' do
-    let(:file_sorter) {FileSorter.new(valid_args)}
+  describe 'sort' do
+    let(:file_parser) {FileParser.new(valid_args)}
 
     it 'sorts by date asc' do
       input_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
@@ -95,7 +95,7 @@ describe "file_sorter" do
       sorted_rows = [["Hotop", "Tom", "Male", "Blue", "08/25/1971"],
                      ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
 
-      expect(file_sorter.sort_by_date_asc(input_rows)).to eq(sorted_rows)
+      expect(file_parser.sort_by_date_asc(input_rows)).to eq(sorted_rows)
     end
 
     it 'sorts by last name desc' do
@@ -106,7 +106,7 @@ describe "file_sorter" do
                      ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"]]
 
 
-      expect(file_sorter.sort_by_last_name_desc(input_rows)).to eq(sorted_rows)
+      expect(file_parser.sort_by_last_name_desc(input_rows)).to eq(sorted_rows)
     end
 
     it 'sorts by gender then last name asc' do
@@ -118,33 +118,39 @@ describe "file_sorter" do
                      ["Geronimo", "Tom", "Male", "Blue", "08/25/1971"],
                      ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
 
-      expect(file_sorter.sort_by_gender_then_last_name_asc(input_rows)).to eq(sorted_rows)
+      expect(file_parser.sort_by_gender_then_last_name_asc(input_rows)).to eq(sorted_rows)
     end
   end
 
-  describe '#format_row' do
-    let(:file_sorter) {FileSorter.new(valid_args)}
+  describe 'format_rows' do
+    let(:file_parser) {FileParser.new(valid_args)}
 
     it 'formats csv rows for better console output' do
       input_row = ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]
 
-      output = capture_stdout { file_sorter.format_row(input_row) }
+      output = capture_stdout { file_parser.format_row(input_row) }
       expect(output).to include "Hotop               Tom"
     end
   end
 
-  describe '#run' do
-    let(:file_sorter) {FileSorter.new(invalid_args)}
+  describe 'run' do
+    context 'unsuccessful run' do
+      let(:file_parser) {FileParser.new(invalid_args)}
 
-    it 'raises an error when there arent three input files' do
-      output = capture_stdout { file_sorter.run }
-      expect(output).to include "Not the right number of arguments."
+      it 'raises an error when there arent three input files' do
+        output = capture_stdout { file_parser.run }
+        expect(output).to include "Not the right number of arguments."
+      end
     end
-  end
-
-  describe '#display_sorted_ouput' do
-    let(:file_sorter) {FileSorter.new(valid_args)}
 
 
+    context 'successful run' do
+      let(:file_parser) {FileParser.new(valid_args)}
+
+      it 'runs successfully' do
+        output = capture_stdout { file_parser.run }
+        expect(output).to include "OUTPUT"
+      end
+    end
   end
 end

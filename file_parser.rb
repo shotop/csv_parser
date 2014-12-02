@@ -1,7 +1,8 @@
 require 'csv'
 require 'time'
+require_relative 'file_combiner'
 
-class FileSorter
+class FileParser
   def initialize(arguments)
     @arguments = arguments
   end
@@ -12,7 +13,7 @@ class FileSorter
       display_sorted_output
     else
       puts "Not the right number of arguments."
-      puts "Usage: ruby file_sorter.rb input_file_1 input_file_2 input_file_3"
+      puts "Usage: ruby file_parser.rb input_file_1 input_file_2 input_file_3"
     end
   end
 
@@ -77,6 +78,6 @@ end
 
 
 
-file_sorter = FileSorter.new(ARGV)
-file_sorter.run
+file_parser = FileParser.new(ARGV)
+file_parser.run
 File.delete("master_file") if File.exist?("master_file")
