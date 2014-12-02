@@ -1,6 +1,7 @@
 require 'rspec'
 
 require_relative '../file_sorter'
+require_relative '../file_combiner'
 
 RSpec.configure do |config|
    config.color = true

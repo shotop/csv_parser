@@ -2,15 +2,13 @@ require 'csv'
 require 'time'
 
 class FileSorter
-  attr_reader :arguments
-
   def initialize(arguments)
     @arguments = arguments
   end
 
   def run
     if arguments_valid?
-      combine_inputs(@arguments[0], @arguments[1], @arguments[2])
+      FileCombiner.new(@arguments[0], @arguments[1], @arguments[2]).combine_inputs
       display_sorted_output
     else
       puts "Not the right number of arguments."
@@ -20,33 +18,6 @@ class FileSorter
 
   def arguments_valid?
     @arguments.length == 3 ? true : false
-  end
-
-  def preprocess_input(input_file)
-    headers = File.open(input_file).first
-    if headers =~ /[,]/
-      separator = ","
-    elsif headers =~ /[|]/
-      separator = "|"
-    else
-      separator = " "
-    end
-
-    processed_csv = CSV.read(input_file, { :col_sep => separator })
-    processed_csv.shift #remove headers
-
-    return processed_csv
-  end
-
-  def combine_inputs(*args)
-    args.each do |arg_item|
-
-      CSV.open('master_file', 'a') do |csv_object|
-        preprocess_input(arg_item).each do |row|
-          csv_object << row
-        end
-      end
-    end
   end
 
   def sort_by_date_asc(rows)
@@ -103,6 +74,8 @@ class FileSorter
     end
   end
 end
+
+
 
 file_sorter = FileSorter.new(ARGV)
 file_sorter.run
