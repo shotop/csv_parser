@@ -1,40 +1,17 @@
 class Formatter
   def self.display_sorted_output
     master = CSV.open("master_file").to_a
-
     header = ["LastName", "FirstName", "Gender", "FavoriteColor", "DateOfBirth"]
+    sorts = ["sort_by_gender_then_last_name_asc", "sort_by_date_asc", "sort_by_last_name_desc"]
 
-    puts "\n"
-
-    p "OUTPUT 1: SORT BY GENDER THEN LAST NAME ASC"
-    format_row(header)
-
-    sorted_csv = CSVSorter.new(master).sort_by_gender_then_last_name_asc
-
-    sorted_csv.each do |row|
-      format_row(row)
-    end
-
-    puts "\n"
-
-    p "OUTPUT 2: SORT BY BIRTHDAY ASC"
-    format_row(header)
-
-    sorted_csv = CSVSorter.new(master).sort_by_date_asc
-
-    sorted_csv.each do |row|
-      format_row(row)
-    end
-
-    puts "\n"
-
-    p "OUTPUT 3: SORT BY LAST NAME DESC"
-    format_row(header)
-
-    sorted_csv = CSVSorter.new(master).sort_by_last_name_desc
-
-    sorted_csv.each do |row|
-      format_row(row)
+    sorts.each_with_index do |sort, index|
+      puts "\n"
+      puts "OUTPUT #{index + 1}: #{sort.gsub(/_/,' ').upcase}"
+      format_row(header)
+      sorted_csv = CSVSorter.new(master).send(sort)
+      sorted_csv.each do |row|
+        format_row(row)
+      end
     end
   end
 
