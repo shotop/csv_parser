@@ -12,19 +12,19 @@ describe "file_sorter" do
 
     context 'valid arguments' do
 
-      let(:file_parser) {FileParser.new(valid_args)}
+      let(:argument_validator) {ArgumentValidator.new(valid_args)}
 
       it 'is true when arguments are valid' do
-        expect(file_parser.arguments_valid?).to be true
+        expect(argument_validator.arguments_valid?).to be true
       end
     end
 
     context 'invalid arguments' do
 
-      let(:file_parser) {FileParser.new(invalid_args)}
+      let(:argument_validator) {ArgumentValidator.new(invalid_args)}
 
       it 'is false when arguments are invalid' do
-        expect(file_parser.arguments_valid?).to be false
+        expect(argument_validator.arguments_valid?).to be false
       end
     end
   end
@@ -121,12 +121,10 @@ describe "file_sorter" do
   end
 
   describe 'format_rows' do
-    let(:file_parser) {FileParser.new(valid_args)}
-
     it 'formats csv rows for better console output' do
       input_row = ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]
 
-      output = capture_stdout { file_parser.format_row(input_row) }
+      output = capture_stdout { Formatter.format_row(input_row) }
       expect(output).to include "Hotop               Tom"
     end
   end

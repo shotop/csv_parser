@@ -4,6 +4,8 @@ require_relative '../file_parser'
 require_relative '../file_combiner'
 require_relative '../csv_preprocessor'
 require_relative '../csv_sorter'
+require_relative '../argument_validator'
+require_relative '../formatter'
 
 RSpec.configure do |config|
    config.color = true
