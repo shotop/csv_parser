@@ -5,8 +5,8 @@ describe "file_sorter" do
     File.delete("master_file") if File.exist?("master_file")
   end
 
-  let(:valid_args) { ["ReverbCommaTestData", "ReverbPipeTestData", "ReverbSpaceTestData"] }
-  let(:invalid_args) { ["ReverbCommaTestData", "ReverbPipeTestData"] }
+  let(:valid_args) { ["spec/test_data/ReverbCommaTestData", "spec/test_data/ReverbPipeTestData", "spec/test_data/ReverbSpaceTestData"] }
+  let(:invalid_args) { ["spec/test_data/ReverbCommaTestData", "spec/test_data/ReverbPipeTestData"] }
 
   describe 'arguments_valid?' do
 

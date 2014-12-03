@@ -1,8 +1,8 @@
 require 'csv'
-require_relative 'file_combiner'
-require_relative 'csv_sorter'
-require_relative 'argument_validator'
-require_relative 'formatter'
+require_relative 'lib/file_combiner'
+require_relative 'lib/csv_sorter'
+require_relative 'lib/argument_validator'
+require_relative 'lib/formatter'
 
 class FileParser
   def initialize(arguments)
