@@ -149,4 +149,9 @@ describe "file_sorter" do
       end
     end
   end
+
+  after(:all) do
+    File.delete("master_file") if File.exist?("master_file")
+    File.delete("../master_file") if File.exist?("../master_file")
+  end
 end
