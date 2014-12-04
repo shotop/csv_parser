@@ -1,3 +1,6 @@
+require 'csv'
+require 'json'
+
 class Formatter
   def self.display_sorted_output
     master = CSV.open("master_file").to_a
@@ -22,5 +25,13 @@ class Formatter
       end
     end
     puts row[0] + row[1].rjust(20) + row[2].rjust(20) + row[4].rjust(15) + row[3].rjust(20)
+  end
+
+  def self.to_json
+    records = Hash.new { |h,k| h[k] = [] }
+    CSV.foreach("../ReverbCommaData", :headers => true) do |row|
+       records[:Records] << Hash[row.headers[0..-1].zip(row.fields[0..-1])]
+    end
+    records
   end
 end
