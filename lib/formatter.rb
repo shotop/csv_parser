@@ -1,5 +1,6 @@
 require 'csv'
 require 'json'
+require_relative 'csv_sorter'
 
 class Formatter
   def self.display_sorted_output

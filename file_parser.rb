@@ -21,5 +21,5 @@ class FileParser
 end
 
 file_parser = FileParser.new(ARGV)
+File.truncate("master_file", 0) if File.exist?("master_file")
 file_parser.run
-# File.truncate("master_file", 0) if File.exist?("master_file")
