@@ -22,4 +22,4 @@ end
 
 file_parser = FileParser.new(ARGV)
 file_parser.run
-File.delete("master_file") if File.exist?("master_file")
+# File.truncate("master_file", 0) if File.exist?("master_file")

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "file_sorter" do
   before(:each) do
-    File.delete("master_file") if File.exist?("master_file")
+    File.truncate("master_file", 0) if File.exist?("master_file")
   end
 
   let(:valid_args) { ["spec/test_data/ReverbCommaTestData", "spec/test_data/ReverbPipeTestData", "spec/test_data/ReverbSpaceTestData"] }
@@ -151,7 +151,6 @@ describe "file_sorter" do
   end
 
   after(:all) do
-    File.delete("master_file") if File.exist?("master_file")
-    File.delete("../master_file") if File.exist?("../master_file")
+    File.truncate("master_file", 0) if File.exist?("master_file")
   end
 end

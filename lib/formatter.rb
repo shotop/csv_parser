@@ -27,10 +27,16 @@ class Formatter
     puts row[0] + row[1].rjust(20) + row[2].rjust(20) + row[4].rjust(15) + row[3].rjust(20)
   end
 
-  def self.to_json
+  def self.format_for_json(sort)
+    master = CSV.open("../master_file").to_a
+    header = ["LastName", "FirstName", "Gender", "FavoriteColor", "DateOfBirth"]
+
+    sorted_csv = CSVSorter.new(master).send(sort)
+
     records = Hash.new { |h,k| h[k] = [] }
-    CSV.foreach("../ReverbCommaData", :headers => true) do |row|
-       records[:Records] << Hash[row.headers[0..-1].zip(row.fields[0..-1])]
+
+    sorted_csv.each do |row|
+      records[:Records] << Hash[header[0..-1].zip(row[0..-1])]
     end
     records
   end
