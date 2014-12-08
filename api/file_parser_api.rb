@@ -9,15 +9,15 @@ class FileParserAPI < Grape::API
 
   resources :records do
     get :gender do
-      Formatter.format_for_json("sort_by_gender_then_last_name_asc")
+      Formatter.new.format_for_json("sort_by_gender_then_last_name_asc")
     end
 
     get :birthdate do
-      Formatter.format_for_json("sort_by_date_asc")
+      Formatter.new.format_for_json("sort_by_date_asc")
     end
 
     get :name do
-      Formatter.format_for_json("sort_by_last_name_desc")
+      Formatter.new.format_for_json("sort_by_last_name_desc")
     end
   end
 

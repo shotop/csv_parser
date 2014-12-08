@@ -12,6 +12,7 @@ class FileParser
   def run
     if ArgumentValidator.new(@arguments).arguments_valid?
       FileCombiner.new(@arguments[0], @arguments[1], @arguments[2]).combine_inputs
+      # FileCombiner.update_column_order
       Formatter.new.display_sorted_output
     else
       puts "Not the right number of arguments."
