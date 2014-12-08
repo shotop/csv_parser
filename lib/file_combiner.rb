@@ -16,4 +16,11 @@ class FileCombiner
       end
     end
   end
+
+  def self.add_row_to_master(single_row)
+    CSV.open('../master_file', 'a') do |csv_object|
+      preprocessed_row = CSVPreprocessor.new(nil, single_row).preprocess_single_row
+      csv_object << preprocessed_row
+    end
+  end
 end

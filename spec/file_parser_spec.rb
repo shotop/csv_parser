@@ -124,7 +124,7 @@ describe "file_sorter" do
     it 'formats csv rows for better console output' do
       input_row = ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]
 
-      output = capture_stdout { Formatter.format_row(input_row) }
+      output = capture_stdout { Formatter.new.format_row(input_row) }
       expect(output).to include "Hotop               Tom"
     end
   end

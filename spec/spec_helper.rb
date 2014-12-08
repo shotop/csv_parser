@@ -1,4 +1,8 @@
 require 'rspec'
+require 'rack'
+require 'rack/test'
+require 'rack/server'
+require 'grape'
 
 require_relative '../file_parser'
 require_relative '../lib/file_combiner'
@@ -6,6 +10,7 @@ require_relative '../lib/csv_preprocessor'
 require_relative '../lib/csv_sorter'
 require_relative '../lib/argument_validator'
 require_relative '../lib/formatter'
+require_relative '../api/file_parser_api.rb'
 
 RSpec.configure do |config|
    config.color = true
