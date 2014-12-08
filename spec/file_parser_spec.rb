@@ -3,6 +3,7 @@ require 'spec_helper'
 describe "file_sorter" do
   before(:each) do
     File.truncate("master_file", 0) if File.exist?("master_file")
+    File.truncate("tmp", 0) if File.exist?("tmp")
   end
 
   let(:valid_args) { ["spec/test_data/ReverbCommaTestData", "spec/test_data/ReverbPipeTestData", "spec/test_data/ReverbSpaceTestData"] }
@@ -74,9 +75,9 @@ describe "file_sorter" do
 
     it 'appends input data to master file' do
 
-      contents = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
-                  ["Coca", "Andrea", "Female", "Blue", "02/25/1983"],
-                  ["Gerard", "Tom", "Male", "Blue", "02/26/1983"]]
+      contents = [["Hotop", "Tom", "Male", "09/25/1971", "Blue"],
+                  ["Coca", "Andrea", "Female", "02/25/1983", "Blue"],
+                  ["Gerard", "Tom", "Male", "02/26/1983", "Blue"]]
 
       file_combiner.combine_inputs
 
@@ -87,11 +88,11 @@ describe "file_sorter" do
   describe 'sort' do
 
     it 'sorts by date asc' do
-      input_rows = [["Hotop", "Tom", "Male", "Blue", "09/25/1971"],
-                    ["Hotop", "Tom", "Male", "Blue", "08/25/1971"]]
+      input_rows = [["Hotop", "Tom", "Male", "09/25/1971", "Blue"],
+                    ["Hotop", "Tom", "Male", "08/25/1971", "Blue"]]
 
-      sorted_rows = [["Hotop", "Tom", "Male", "Blue", "08/25/1971"],
-                     ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]]
+      sorted_rows = [["Hotop", "Tom", "Male", "08/25/1971", "Blue"],
+                     ["Hotop", "Tom", "Male", "09/25/1971", "Blue"]]
 
       expect(CSVSorter.new(input_rows).sort_by_date_asc).to eq(sorted_rows)
     end
@@ -152,5 +153,6 @@ describe "file_sorter" do
 
   after(:all) do
     File.truncate("master_file", 0) if File.exist?("master_file")
+    File.truncate("tmp", 0) if File.exist?("tmp")
   end
 end

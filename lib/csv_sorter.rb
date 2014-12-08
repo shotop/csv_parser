@@ -6,7 +6,7 @@ class CSVSorter
   end
 
   def sort_by_date_asc
-    @csv.sort_by! {|column| Time.strptime(column[4], "%m/%d/%Y")}
+    @csv.sort_by! {|column| Time.strptime(column[3], "%m/%d/%Y")}
   end
 
   def sort_by_last_name_desc

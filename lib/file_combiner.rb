@@ -8,18 +8,19 @@ class FileCombiner
   def combine_inputs
     @files.each do |file|
 
-      CSV.open('master_file', 'a') do |csv_object|
+      CSV.open('tmp', 'a') do |csv_object|
         preprocessed_csv = CSVPreprocessor.new(file).preprocess_input
         preprocessed_csv.each do |row|
           csv_object << row
         end
       end
     end
+    update_column_order
   end
 
-  def self.update_column_order
-    CSV.open('master_file', 'wb') do |master|
-      CSV.read('master_file').each do |line|
+  def update_column_order
+    CSV.open('master_file', 'w+') do |master|
+      CSV.read('tmp').each do |line|
         master << [line[0], line[1], line[2], line[4], line[3]]
       end
     end

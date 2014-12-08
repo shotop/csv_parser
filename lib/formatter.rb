@@ -5,7 +5,7 @@ require_relative 'csv_sorter'
 class Formatter
 
   def initialize
-    @header = ["LastName", "FirstName", "Gender", "FavoriteColor", "DateOfBirth"]
+    @header = ["LastName", "FirstName", "Gender", "DateOfBirth", "FavoriteColor"]
   end
 
   def display_sorted_output
@@ -30,7 +30,7 @@ class Formatter
         item << " "
       end
     end
-    puts row[0] + row[1].rjust(20) + row[2].rjust(20) + row[4].rjust(15) + row[3].rjust(20)
+    puts row[0] + row[1].rjust(20) + row[2].rjust(20) + row[3].rjust(15) + row[4].rjust(20)
   end
 
 
