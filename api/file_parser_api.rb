@@ -22,6 +22,6 @@ class FileParserAPI < Grape::API
   end
 
   post :records do
-    FileCombiner.add_row_to_master(params[:data])
+    FileCombiner.new.add_row_to_master(params[:data])
   end
 end
