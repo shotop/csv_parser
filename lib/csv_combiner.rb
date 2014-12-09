@@ -27,7 +27,7 @@ class CSVCombiner
   end
 
   def add_row_to_master(single_row)
-    CSV.open('data/master_file', 'a') do |csv_object|
+    CSV.open(Dir.glob("../**/master_file").first, 'a') do |csv_object|
       row = CSVPreprocessor.new(nil, single_row).preprocess_single_row
       csv_object << [row[0], row[1], row[2], row[4], row[3]]
     end

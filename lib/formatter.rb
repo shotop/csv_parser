@@ -33,7 +33,7 @@ class Formatter
 
 
   def self.format_for_json(sort)
-    master = CSV.read(Dir.glob("/Users/samuelhotop/Projects/csv_parser/**/master_file").first).to_a
+    master = CSV.read(Dir.glob("../**/master_file").first).to_a
 
     sorted_csv = CSVSorter.new(master).send(sort)
 
