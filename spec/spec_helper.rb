@@ -10,12 +10,15 @@ require_relative '../lib/csv_preprocessor'
 require_relative '../lib/csv_sorter'
 require_relative '../lib/argument_validator'
 require_relative '../lib/formatter'
-require_relative '../api/file_parser_api.rb'
+require_relative '../api/file_parser_api'
+
+
 
 RSpec.configure do |config|
-   config.color = true
-   config.tty = true
-   config.formatter = :documentation
+  config.include Rack::Test::Methods
+  config.color = true
+  config.tty = true
+  config.formatter = :documentation
 end
 
 def capture_stdout(&block)

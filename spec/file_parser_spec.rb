@@ -151,8 +151,8 @@ describe "file_sorter" do
     end
   end
 
-  after(:all) do
-    File.truncate("master_file", 0) if File.exist?("master_file")
-    File.truncate("tmp", 0) if File.exist?("tmp")
-  end
+  # after(:all) do
+  #   File.truncate("master_file", 0) if File.exist?("master_file")
+  #   File.truncate("tmp", 0) if File.exist?("tmp")
+  # end
 end
