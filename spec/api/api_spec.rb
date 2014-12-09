@@ -8,12 +8,16 @@ describe CSVParserAPI do
     end.to_app
   end
 
+  before(:all) do
+    CSVCombiner.new.add_row_to_master("Hotop,Tom,Male,Blue,09/25/1971")
+  end
+
   describe "API" do
     describe "GET /records/gender" do
       it "returns records sorted by gender first" do
         get "/records/gender"
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)['Records'].length).to be > 1
+        expect(JSON.parse(last_response.body)['Records'].length).to be >= 1
       end
     end
 
@@ -21,7 +25,7 @@ describe CSVParserAPI do
       it "returns records sorted by name" do
         get "/records/name"
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)['Records'].length).to be > 1
+        expect(JSON.parse(last_response.body)['Records'].length).to be >= 1
       end
     end
 
@@ -29,7 +33,7 @@ describe CSVParserAPI do
       it "returns records sorted by birthdate" do
         get "/records/birthdate"
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)['Records'].length).to be > 1
+        expect(JSON.parse(last_response.body)['Records'].length).to be >= 1
       end
     end
 
