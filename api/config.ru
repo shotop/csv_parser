@@ -1,5 +1,5 @@
 require 'rack'
 require 'rack/server'
-require '/Users/samuelhotop/Projects/file_sorter/api/file_parser_api.rb'
+require '/Users/samuelhotop/Projects/csv_parser/api/file_parser_api.rb'
 
 run FileParserAPI

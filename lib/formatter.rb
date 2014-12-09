@@ -3,20 +3,18 @@ require 'json'
 require_relative 'csv_sorter'
 
 class Formatter
+  HEADER = ["LastName", "FirstName", "Gender", "DateOfBirth", "FavoriteColor"]
 
-  def initialize
-    @header = ["LastName", "FirstName", "Gender", "DateOfBirth", "FavoriteColor"]
-  end
 
-  def display_sorted_output
-    master = CSV.read("master_file").to_a
+  def self.display_sorted_output
+    master = CSV.read("data/master_file").to_a
 
     sorts = ["sort_by_gender_then_last_name_asc", "sort_by_date_asc", "sort_by_last_name_desc"]
 
     sorts.each_with_index do |sort, index|
       puts "\n"
       puts "OUTPUT #{index + 1}: #{sort.gsub(/_/,' ').upcase}"
-      format_row(@header)
+      format_row(HEADER)
       sorted_csv = CSVSorter.new(master).send(sort)
       sorted_csv.each do |row|
         format_row(row)
@@ -24,7 +22,7 @@ class Formatter
     end
   end
 
-  def format_row(row)
+  def self.format_row(row)
     row.each do |item|
       while item.length < 20
         item << " "
@@ -34,15 +32,15 @@ class Formatter
   end
 
 
-  def format_for_json(sort)
-    master = CSV.read(Dir.glob("/Users/samuelhotop/Projects/file_sorter/**/master_file").first).to_a
+  def self.format_for_json(sort)
+    master = CSV.read(Dir.glob("/Users/samuelhotop/Projects/csv_parser/**/master_file").first).to_a
 
     sorted_csv = CSVSorter.new(master).send(sort)
 
     records = Hash.new { |h,k| h[k] = [] }
 
     sorted_csv.each do |row|
-      records[:Records] << Hash[@header[0..-1].zip(row[0..-1])]
+      records[:Records] << Hash[HEADER[0..-1].zip(row[0..-1])]
     end
     records
   end

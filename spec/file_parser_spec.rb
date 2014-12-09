@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe "file_sorter" do
   before(:each) do
-    File.truncate("master_file", 0) if File.exist?("master_file")
-    File.truncate("tmp", 0) if File.exist?("tmp")
+    File.truncate("data/master_file", 0) if File.exist?("data/master_file")
+    File.truncate("data/tmp", 0) if File.exist?("data/tmp")
   end
 
   let(:valid_args) { ["spec/test_data/ReverbCommaTestData", "spec/test_data/ReverbPipeTestData", "spec/test_data/ReverbSpaceTestData"] }
@@ -65,12 +65,12 @@ describe "file_sorter" do
   end
 
   describe 'combine_inputs' do
-    let(:file_combiner) {FileCombiner.new(valid_args[0], valid_args[1], valid_args[2])}
+    let(:csv_combiner) {CSVCombiner.new(valid_args[0], valid_args[1], valid_args[2])}
 
     it 'creates the master file' do
-      file_combiner.combine_inputs
+      csv_combiner.combine_inputs
 
-      expect(File.exists?('master_file')).to be true
+      expect(File.exists?('data/master_file')).to be true
     end
 
     it 'appends input data to master file' do
@@ -79,9 +79,9 @@ describe "file_sorter" do
                   ["Coca", "Andrea", "Female", "02/25/1983", "Blue"],
                   ["Gerard", "Tom", "Male", "02/26/1983", "Blue"]]
 
-      file_combiner.combine_inputs
+      csv_combiner.combine_inputs
 
-      expect(CSV.read('master_file')).to eq(contents)
+      expect(CSV.read('data/master_file')).to eq(contents)
     end
   end
 
@@ -125,7 +125,7 @@ describe "file_sorter" do
     it 'formats csv rows for better console output' do
       input_row = ["Hotop", "Tom", "Male", "Blue", "09/25/1971"]
 
-      output = capture_stdout { Formatter.new.format_row(input_row) }
+      output = capture_stdout { Formatter.format_row(input_row) }
       expect(output).to include "Hotop               Tom"
     end
   end
@@ -150,9 +150,4 @@ describe "file_sorter" do
       end
     end
   end
-
-  # after(:all) do
-  #   File.truncate("master_file", 0) if File.exist?("master_file")
-  #   File.truncate("tmp", 0) if File.exist?("tmp")
-  # end
 end
