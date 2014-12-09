@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "file_sorter" do
   before(:each) do
-    File.truncate("data/master_file", 0) if File.exist?("data/master_file")
+    File.truncate("data/master_csv", 0) if File.exist?("data/master_csv")
     File.truncate("data/tmp", 0) if File.exist?("data/tmp")
   end
 
@@ -70,7 +70,7 @@ describe "file_sorter" do
     it 'creates the master file' do
       csv_combiner.combine_inputs
 
-      expect(File.exists?('data/master_file')).to be true
+      expect(File.exists?('data/master_csv')).to be true
     end
 
     it 'appends input data to master file' do
@@ -81,7 +81,7 @@ describe "file_sorter" do
 
       csv_combiner.combine_inputs
 
-      expect(CSV.read('data/master_file')).to eq(contents)
+      expect(CSV.read('data/master_csv')).to eq(contents)
     end
   end
 

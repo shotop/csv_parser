@@ -19,7 +19,7 @@ class CSVCombiner
   end
 
   def update_column_order
-    CSV.open('data/master_file', 'w+') do |master|
+    CSV.open('data/master_csv', 'w+') do |master|
       CSV.read('data/tmp').each do |line|
         master << [line[0], line[1], line[2], line[4], line[3]]
       end
@@ -27,7 +27,7 @@ class CSVCombiner
   end
 
   def add_row_to_master(single_row)
-    CSV.open(Dir.glob("../**/master_file").first, 'a') do |csv_object|
+    CSV.open(Dir.glob("../**/master_csv").first, 'a') do |csv_object|
       row = CSVPreprocessor.new(nil, single_row).preprocess_single_row
       csv_object << [row[0], row[1], row[2], row[4], row[3]]
     end

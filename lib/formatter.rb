@@ -7,7 +7,7 @@ class Formatter
 
 
   def self.display_sorted_output
-    master = CSV.read("data/master_file").to_a
+    master = CSV.read("data/master_csv").to_a
 
     sorts = ["sort_by_gender_then_last_name_asc", "sort_by_date_asc", "sort_by_last_name_desc"]
 
@@ -33,7 +33,7 @@ class Formatter
 
 
   def self.format_for_json(sort)
-    master = CSV.read(Dir.glob("../**/master_file").first).to_a
+    master = CSV.read(Dir.glob("../**/master_csv").first).to_a
 
     sorted_csv = CSVSorter.new(master).send(sort)
 

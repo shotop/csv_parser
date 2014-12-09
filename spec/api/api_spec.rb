@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe FileParserAPI do
+describe CSVParserAPI do
 
   def app
     Rack::Builder.new do
-      run FileParserAPI
+      run CSVParserAPI
     end.to_app
   end
 

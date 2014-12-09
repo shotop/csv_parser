@@ -21,6 +21,6 @@ class FileParser
 end
 
 file_parser = FileParser.new(ARGV)
-# File.truncate("data/master_file", 0) if File.exist?("data/master_file")
+# File.truncate("data/master_csv", 0) if File.exist?("data/master_csv")
 # File.truncate("data/tmp", 0) if File.exist?("data/tmp")
 file_parser.run

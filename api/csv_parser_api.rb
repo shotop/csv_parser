@@ -4,7 +4,7 @@ require_relative '../lib/csv_preprocessor.rb'
 require_relative '../lib/csv_combiner.rb'
 
 
-class FileParserAPI < Grape::API
+class CSVParserAPI < Grape::API
   format :json
 
   resources :records do
