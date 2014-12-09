@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "file_sorter" do
+describe "csv_parser" do
   before(:each) do
     File.truncate("data/master_csv", 0) if File.exist?("data/master_csv")
     File.truncate("data/tmp", 0) if File.exist?("data/tmp")
@@ -67,7 +67,7 @@ describe "file_sorter" do
   describe 'combine_inputs' do
     let(:csv_combiner) {CSVCombiner.new(valid_args[0], valid_args[1], valid_args[2])}
 
-    it 'creates the master file' do
+    it 'creates the master csv file' do
       csv_combiner.combine_inputs
 
       expect(File.exists?('data/master_csv')).to be true
