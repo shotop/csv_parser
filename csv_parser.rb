@@ -2,7 +2,8 @@ require 'csv'
 require_relative 'lib/csv_combiner'
 require_relative 'lib/csv_sorter'
 require_relative 'lib/argument_validator'
-require_relative 'lib/formatter'
+require_relative 'lib/json_formatter'
+require_relative 'lib/console_formatter'
 
 class FileParser
   def initialize(arguments)
@@ -12,7 +13,7 @@ class FileParser
   def run
     if ArgumentValidator.new(@arguments).arguments_valid?
       CSVCombiner.new(@arguments[0], @arguments[1], @arguments[2]).combine_inputs
-      Formatter.display_sorted_output
+      ConsoleFormatter.new.display_sorted_output
     else
       puts "Not the right number of arguments."
       puts "Usage: ruby file_parser.rb input_file_1 input_file_2 input_file_3"

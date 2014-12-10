@@ -10,6 +10,7 @@ require_relative '../lib/csv_preprocessor'
 require_relative '../lib/csv_sorter'
 require_relative '../lib/argument_validator'
 require_relative '../lib/formatter'
+require_relative '../lib/console_formatter'
 require_relative '../api/csv_parser_api'
 
 
