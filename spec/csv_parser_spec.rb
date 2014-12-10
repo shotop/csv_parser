@@ -132,20 +132,20 @@ describe "csv_parser" do
 
   describe 'run' do
     context 'unsuccessful run' do
-      let(:file_parser) {FileParser.new(invalid_args)}
+      let(:csv_parser) {CSVParser.new(invalid_args)}
 
       it 'raises an error when there arent three input files' do
-        output = capture_stdout { file_parser.run }
+        output = capture_stdout { csv_parser.run }
         expect(output).to include "Not the right number of arguments."
       end
     end
 
 
     context 'successful run' do
-      let(:file_parser) {FileParser.new(valid_args)}
+      let(:csv_parser) {CSVParser.new(valid_args)}
 
       it 'runs successfully' do
-        output = capture_stdout { file_parser.run }
+        output = capture_stdout { csv_parser.run }
         expect(output).to include "OUTPUT"
       end
     end

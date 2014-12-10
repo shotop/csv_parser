@@ -1,11 +1,10 @@
 require 'csv'
 require_relative 'lib/csv_combiner'
-require_relative 'lib/csv_sorter'
 require_relative 'lib/argument_validator'
 require_relative 'lib/json_formatter'
 require_relative 'lib/console_formatter'
 
-class FileParser
+class CSVParser
   def initialize(arguments)
     @arguments = arguments
   end
@@ -21,7 +20,7 @@ class FileParser
   end
 end
 
-file_parser = FileParser.new(ARGV)
+csv_parser = CSVParser.new(ARGV)
 File.truncate("data/master_csv", 0) if File.exist?("data/master_csv")
 File.truncate("data/tmp", 0) if File.exist?("data/tmp")
-file_parser.run
+csv_parser.run
