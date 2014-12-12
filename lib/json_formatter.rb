@@ -8,9 +8,7 @@ class JsonFormatter < Formatter
   end
 
   def format_for_json(sort)
-    master = CSV.read(Dir.glob("../**/master_csv").first).to_a
-
-    sorted_csv = CSVSorter.new(master).send(sort)
+    sorted_csv = CSVSorter.new(@master).send(sort)
 
     records = Hash.new { |h,k| h[k] = [] }
 

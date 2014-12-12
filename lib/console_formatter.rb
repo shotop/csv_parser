@@ -6,15 +6,13 @@ class ConsoleFormatter < Formatter
   end
 
   def display_sorted_output
-    master = CSV.read("data/master_csv").to_a
-
     sorts = ["sort_by_gender_then_last_name_asc", "sort_by_date_asc", "sort_by_last_name_desc"]
 
     sorts.each_with_index do |sort, index|
       puts "\n"
       puts "OUTPUT #{index + 1}: #{sort.gsub(/_/,' ').upcase}"
       format_row(@header)
-      sorted_csv = CSVSorter.new(master).send(sort)
+      sorted_csv = CSVSorter.new(@master).send(sort)
       sorted_csv.each do |row|
         format_row(row)
       end
